@@ -7,11 +7,25 @@ from .database import SessionLocal, engine
 from .auth.router import router as auth_router
 from .auth.dependencies import get_current_user
 
+from contextlib import asynccontextmanager
+from .seeding import seed_data
+from fastapi.staticfiles import StaticFiles
+
 #Creates the db tables
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Run the seed function to populate items if necessary 
+    seed_data()
+    yield #yield added here to act as empty shutdown logic
+
+
+app = FastAPI(lifespan=lifespan)
+
 app.include_router(auth_router)
+app.mount("/static", StaticFiles(directory="backend/photos"), name="static")
 
 
 # creates a new SQLAlchemy SessionLocal that will be used in a single request, then closes after request finished
@@ -56,9 +70,10 @@ def delete_user(user_id: int, db: Session = Depends(get_db), current_user: schem
 
 @app.get("/items/", response_model=list[schemas.ItemInDB], tags=["items"])
 def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db), current_user: schemas.UserInDB = Depends(get_current_user)):
-    return crud.get_items(db, user_id = current_user.id, skip = skip, limit = limit)
+    return crud.get_items(db, skip = skip, limit = limit)
 
+# ----- Path Operation intended for frontend to know it is getting the correct data -----
 
-@app.get("/")
+@app.get("/", tags=["test"])
 async def hello():
     return {"message": "Hello Frontend"}

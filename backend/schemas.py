@@ -10,7 +10,6 @@ class ItemCreate(ItemBase):
 
 class ItemInDB(ItemBase):
     id: int
-    owner_id: int
 
     class Config:
         orm_mode = True

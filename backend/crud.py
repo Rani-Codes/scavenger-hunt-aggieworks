@@ -34,5 +34,5 @@ def delete_user(db: Session, user_id: int):
     return {"message": "User deleted successfully"}
 
 
-def get_items(db: Session, user_id: int, skip: int = 0, limit: int = 100):
-    return db.query(models.Item).filter(models.Item.owner.has(id=user_id)).offset(skip).limit(limit).all()
+def get_items(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Item).offset(skip).limit(limit).all()
