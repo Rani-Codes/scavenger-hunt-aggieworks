@@ -8,6 +8,21 @@ def seed_items(db: Session):
         {"title": "American Crow", "photo_url": "/static/american_crow.jpg"},
         {"title": "American Goldfinch", "photo_url": "/static/american_goldfinch.jpg"},
         {"title": "Black Phoebe", "photo_url": "/static/black_phoebe.jpg"},
+        {"title": "California Ground Squirrel", "photo_url": "/static/california_ground_squirrel.webp"},
+        {"title": "Cheeto Cat", "photo_url": "/static/cheeto_cat.jpg"},
+        {"title": "Common Carp", "photo_url": "/static/common_carp.jpg"},
+        {"title": "European Starling", "photo_url": "/static/european_starling.jpg"},
+        {"title": "Feather Reed Grass", "photo_url": "/static/feather_reed_grass.webp"},
+        {"title": "Green Sunfish", "photo_url": "/static/green_sunfish.jpeg"},
+        {"title": "Marina Madrone", "photo_url": "/static/marina_madrone.jpg"},
+        {"title": "Purple Bottlebrush", "photo_url": "/static/purple_bottlebrush.jpg"},
+        {"title": "Santa Barbara Daisy", "photo_url": "/static/santa_barbara_daisy.jpg"},
+        {"title": "Turkey Vulture", "photo_url": "/static/turkey_vulture.jpeg"},
+        {"title": "Valley Garter Snake", "photo_url": "/static/valley_garter_snake.jpeg"},
+        {"title": "Western Redbud", "photo_url": "/static/western_redbud.jpg"},
+        {"title": "Western Scrub Jay", "photo_url": "/static/western_scrub_jay.jpg"},
+        {"title": "Western Spice Bush", "photo_url": "/static/western_spice_bush.jpg"},
+        {"title": "Wild Turkey (Meleagris gallopavo)", "photo_url": "/static/wild_turkey(meleagris_gallopavo).webp"},
     ]
 
     for item_data in items:
