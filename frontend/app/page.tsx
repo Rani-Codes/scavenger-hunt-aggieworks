@@ -1,21 +1,46 @@
 'use client'
-import { useState } from "react";
+import { useState } from "react"
+import {login, signup } from '@/app/utils/authAPI'
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   // State to toggle between login and sign up
   const [isSignUp, setIsSignUp] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<String | null>(null)
+  const [alert, setAlert] = useState<String | null>(null)
+  const router = useRouter()
 
   // Handle form submit for login or sign up
-  const handleSubmit = (event: { preventDefault: () => void; }) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (isSignUp) {
-      console.log("Sign up:", { username, password });
-      // Make your sign-up request here
+      setError(null)
+      try {
+          await signup(username, password)
+          setAlert("User created successfully, you can now log in.")
+      }
+      catch (error) {
+          if (error instanceof Error) {
+              setError(error.message)
+          } else {
+              console.error("Caught an error that is not an instance of Error:", error)
+          }
+      }
     } else {
-      console.log("Login:", { username, password });
-      // Make your login request here
+      setError(null)
+      try {
+          await login(username, password)
+          router.push('/hunt')
+      }
+      catch (error) {
+          if (error instanceof Error) {
+              setError(error.message)
+          } else {
+              console.error("Caught an error that is not an instance of Error:", error)
+          }
+      }
     }
   };
 
@@ -75,6 +100,16 @@ export default function Home() {
               </p>
             </div>
           </div>
+
+          {/* Error and alert messages */}
+          {isSignUp && alert && !error && (
+            <h4 className="text-xl text-green-500">{alert}</h4>
+          )}
+
+          {(isSignUp && error) || (!isSignUp && error) ? (
+            <h4 className="text-xl text-red-500">{error}</h4>
+          ) : null}
+          
         </div>
       </main>
     </div>
