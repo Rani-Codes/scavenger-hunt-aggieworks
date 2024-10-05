@@ -35,18 +35,10 @@ def seed_items(db: Session):
     db.commit()
 
 
-# FOR TESTING PURPOSES, DELETE IN PRODUCTION
-def delete_existing_items(db: Session):
-    # Delete all existing items in the database
-    db.query(Item).delete()
-    db.commit()
-
 # This function is invoked when the app starts
 def seed_data():
     db = SessionLocal()
     try:
-        #DELETE delete_existing_items(db) FUNCTION AFTER TESTING
-        delete_existing_items(db)  # Clear out the old data
         seed_items(db)  # Seed new data
     finally:
         db.close()

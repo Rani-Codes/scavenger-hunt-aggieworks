@@ -1,19 +1,20 @@
 'use client';
 import { useEffect, useState } from "react";
-import { getUser } from "../utils/authAPI";
-import Link from "next/link";
+import { deleteUser, getUser } from "../utils/authAPI";
 import Image from "next/image";
 
 interface User {
     username: string;
+    id: number;
 }
 
 const Page: React.FC = () => {
-    const [user, setUser] = useState<User | null>(null); // Initial state can be null
+    const [user, setUser] = useState<User | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [alert, setAlert] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchUser = async () => { // Renamed for clarity
+        const fetchUser = async () => {
             try {
                 const data = await getUser();
                 setUser(data);
@@ -26,14 +27,31 @@ const Page: React.FC = () => {
         fetchUser();
     }, []);
 
+    const handleDelete = async () => {
+        if (!user) {
+            setError("No user found to delete.");
+            return;
+        }
+        
+        try {
+            await deleteUser(user.id);
+            setAlert("User successfully deleted.");
+        } catch (error) {
+            if (error instanceof Error) {
+                setError(error.message);
+            } else {
+                console.error("Caught an error that is not an instance of Error:", error);
+            }
+        }
+    }
+
     return (
         <div className="text-center font-semibold text-2xl flex flex-col justify-center items-center py-10">
-            {error ? (
-                <h2 className="text-red-500">Error: {error}</h2>
-            ) : (
+            {error && <h2 className="text-red-500">Error: {error}</h2>}
+            {!error && user && (
                 <>
                     <h1>Congratulations on beating the game</h1>
-                    <h2>Thanks for playing <span className="text-green-500">{user?.username}</span>!</h2>
+                    <h2>Thanks for playing <span className="text-green-500">{user.username}</span>!</h2>
 
                     <div className="m-4 sm:m-10">
                         <Image
@@ -48,11 +66,11 @@ const Page: React.FC = () => {
 
                     <h4 className="mt-10">Wanna delete your user?</h4>
                     
-                    <Link href={'/'}>
-                        <button className="bg-black text-white p-3 mt-2 rounded font-bold text-lg hover:bg-opacity-80">
-                            Delete User
-                        </button>
-                    </Link>
+                    <button onClick={handleDelete} className="bg-black text-white p-3 mt-2 rounded font-bold text-lg hover:bg-opacity-80">
+                        Delete User
+                    </button>
+
+                    {alert && <h1 className="text-green-500">Message: {alert}</h1>}
                 </>
             )}
         </div>
