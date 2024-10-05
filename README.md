@@ -1,3 +1,6 @@
+# Site live at "https://scavenger-hunt-aggieworks.vercel.app/"
+Please allow a few minutes for the backend to spin up. If you get a "Failed to fetch" error when you try to login, that just means the backend hasn't fully booted up yet.
+
 ## UC Davis AggieWorks Take-Home Fall 2024
 - We were told to make a project in around 5 hours, mine ended up totaling a little over 6 hours.
 - The hardest part was maintaining the small scope.
@@ -14,32 +17,12 @@
 
 ## Backend
 - To run the backend locally please run 'uvicorn backend.main:app --reload' inside of the scavenger-hunt-aggieworks directory
-
-### Backend packages used:
-Results from pip freeze:
-- annotated-types==0.7.0
-- anyio==4.6.0
-- bcrypt==4.2.0
-- fastapi==0.115.0
-- greenlet==3.1.1
-- idna==3.10
-- passlib==1.7.4
-- pydantic==2.9.2
-- pydantic_core==2.23.4
-- PyJWT==2.9.0
-- python-dotenv==1.0.1
-- python-multipart==0.0.12
-- sniffio==1.3.1
-- SQLAlchemy==2.0.35
-- starlette==0.38.6
-- typing_extensions==4.12.2
+- The backend packages needed to run this app are all available for referance inside of the requirements.txt
 
 if uvicorn backend.main:app --reload doesnt work, make sure you have all of these packages installed.
 
 ## Frontend
 Just run "npm install" inside of the frontend directory to install all the packages to use the nextjs app locally
-
-### Currently the CORS are only set for local developmnent. Need to be updated if site is deployed
 
 ## Developer Notes
 When deciding whether or not I was going to store the items clicked on the frontend or backend I chose to go with the frontend to keep the project scoped to around 5 hours of work. This was not a oversight, it was a deliberate omission.
