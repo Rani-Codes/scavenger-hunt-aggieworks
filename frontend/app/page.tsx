@@ -45,7 +45,10 @@ export default function Home() {
   };
 
   return (
-    <div className="flex justify-center items-center w-full h-screen">
+    <>
+      <h5 className="text-xl mt-20 text-center">Github Repo: https://github.com/Rani-Codes/scavenger-hunt-aggieworks</h5>
+
+      <div className="flex justify-center items-center w-full h-screen">
       <main>
         <div className="flex justify-center items-center flex-col">
           <h1 className="text-2xl">Welcome to Scavenger Hunt</h1>
@@ -113,5 +116,7 @@ export default function Home() {
         </div>
       </main>
     </div>
+    </>
+
   );
 }

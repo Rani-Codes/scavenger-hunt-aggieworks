@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { deleteUser, getUser } from "../utils/authAPI";
 import Image from "next/image";
+import Link from "next/link";
 
 interface User {
     username: string;
@@ -69,6 +70,14 @@ const Page: React.FC = () => {
                     <button onClick={handleDelete} className="bg-black text-white p-3 mt-2 rounded font-bold text-lg hover:bg-opacity-80">
                         Delete User
                     </button>
+
+                    <h4 className="mt-10">Go back to the home page?</h4>
+
+                    <Link href={'/'}>
+                        <button className="bg-yellow-400 rounded p-4 mt-2 font-bold text-lg hover:bg-opacity-80">
+                            Home
+                        </button>
+                    </Link>
 
                     {alert && <h1 className="text-green-500">Message: {alert}</h1>}
                 </>
