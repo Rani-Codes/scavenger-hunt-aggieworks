@@ -33,7 +33,7 @@ app.mount("/static", StaticFiles(directory="backend/photos"), name="static")
 origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://scavenger-hunt-aggieworks.vercel.app/",
+    "https://scavenger-hunt-aggieworks.vercel.app",
 ]
 
 app.add_middleware(
