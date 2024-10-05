@@ -1,5 +1,5 @@
 from typing import Annotated
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Request
 from sqlalchemy.orm import Session
 
 from backend import crud, models, schemas
@@ -32,6 +32,7 @@ app.mount("/static", StaticFiles(directory="backend/photos"), name="static")
 #Add CORS to allow backend to communicate with frontend
 origins = [
     "http://localhost:3000",
+    "http://127.0.0.1:3000" 
 ]
 
 app.add_middleware(
@@ -84,8 +85,13 @@ def delete_user(user_id: int, db: Session = Depends(get_db), current_user: schem
 # ----- Path Operation for Items below -----
 
 @app.get("/items/", response_model=list[schemas.ItemInDB], tags=["items"])
-def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db), current_user: schemas.UserInDB = Depends(get_current_user)):
-    return crud.get_items(db, skip = skip, limit = limit)
+def read_items(request: Request, skip: int = 0, limit: int = 100, db: Session = Depends(get_db), current_user: schemas.UserInDB = Depends(get_current_user)):
+    items = crud.get_items(db, skip = skip, limit = limit)
+
+    for item in items:
+        item.photo_url = f"{request.base_url}{item.photo_url.lstrip('/')}"
+
+    return items
 
 # ----- Path Operation intended for frontend to know it is getting the correct data -----
 

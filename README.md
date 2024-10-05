@@ -33,3 +33,5 @@ starlette==0.38.6
 typing_extensions==4.12.2
 
 if uvicorn backend.main:app --reload doesnt work, make sure you have all of these packages installed.
+
+### Currently the CORS are only set for local developmnent. Need to be updated if site is deployed
