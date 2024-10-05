@@ -2,7 +2,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 import Cookies from 'js-cookie';
 
 
-export async function get_Items() {
+export async function getItems() {
     //Grabbing token to check if user is signed in before fetching items from api
     const token = Cookies.get('token')
 

@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from "react"
-import { get_Items } from "../utils/itemsAPI"
+import { getItems } from "../utils/itemsAPI"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -18,7 +18,7 @@ const page: React.FC = () => {
     useEffect(() => {
         const fetchItems = async () => {
             try {
-                const data = await get_Items()
+                const data = await getItems()
                 setItems(data)
             }
             catch (error) {
@@ -49,7 +49,7 @@ const page: React.FC = () => {
                 <h6 className="font-semibold">Find them all for a special suprise... 👀</h6>
             </div>
 
-            {error && <h3>Error: {error}</h3>}
+            {error && <h3 className="text-3xl text-red-500">Error: {error}</h3>}
 
             <div className={`${items.length ? "grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-10 lg:grid-cols-3 lg:gap-20" : "grid grid-cols-1"}`}>
                 {items.map((item) => {
@@ -76,7 +76,7 @@ const page: React.FC = () => {
                 })}
             </div>
 
-            {selectedItems.length === items.length && (
+            {!error && selectedItems.length === items.length && items.length !== 0 && (
                     <div className="mt-4 sm:mt-10 flex flex-col justify-center items-center w-full h-full">
                         <h1 className="text-xl font-bold text-center">You have completed the scavanger hunt, click continue.</h1>
                         

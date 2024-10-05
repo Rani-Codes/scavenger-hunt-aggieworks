@@ -63,3 +63,26 @@ export async function deleteUser(id: any) {
 
   return await response.json
 }
+
+export async function getUser() {
+  //Grabbing token to check if user is signed in before fetching items from api
+  const token = Cookies.get('token')
+
+  //Expecting JSON data
+  const headers = {
+      'Content-Type': 'application/json',
+      ...(token ? {'Authorization': `Bearer ${token}`} : {})
+  }
+
+  const response = await fetch(`${API_URL}/users/me/`, {
+    method: 'GET',
+    headers,
+  })
+
+  if(!response.ok) {
+      const error = await response.json();
+      throw new Error(error.detail || 'Failed to fetch user');
+  }
+
+  return response.json()
+}
