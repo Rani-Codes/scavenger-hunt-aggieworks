@@ -5,6 +5,9 @@ Please allow a few minutes for the backend to spin up. If you get a "Failed to f
 - We were told to make a project in around 5 hours, mine ended up totaling a little over 6 hours.
 - The hardest part was maintaining the small scope.
 
+## Demo Video
+[Watch the demo video](https://drive.google.com/file/d/1TgM7rSsW2bZZlfPrvaXC3umqlqwqGxQU/view?usp=sharing)
+
 ### What did you learn?
 - I learned how to store static photos in the backend and then call them from the frontend when I needed them.
 
